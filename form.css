@@ -46,6 +46,7 @@ body {
   margin-top: 26px;
   padding-top: 24px;
   border-top: 1px solid #e6edf6;
+  min-width: 0;
 }
 
 .form-section:first-of-type {
@@ -66,6 +67,8 @@ label {
   font-size: 14px;
   color: #26364f;
   font-weight: 500;
+  width: 100%;
+  min-width: 0;
 }
 
 /* INPUTS */
