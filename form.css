@@ -72,17 +72,23 @@ label {
 input,
 select,
 textarea {
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+input[type="date"] {
+  display: block;
   width: 100%;
-  min-height: 52px;
-  padding: 13px 15px;
+  max-width: 100%;
+  min-width: 0;
 
-  border-radius: 16px;
-  border: 1px solid #d7e0ec;
+  -webkit-appearance: none;
+  appearance: none;
+}
 
-  background: #f7f9fc;
-  color: #192e58;
-
-  font: inherit;
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
 }
 
 textarea {
