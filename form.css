@@ -69,25 +69,36 @@ label {
 }
 
 /* INPUTS */
+/* normale felter */
 input,
 select,
 textarea {
-  max-width: 100%;
-  min-width: 0;
+  width: 100%;
+  min-height: 52px;
+  padding: 13px 15px;
+  font-size: 16px;
+  border-radius: 16px;
+  border: 1px solid #d7e0ec;
+  background: #f7f9fc;
+  color: #192e58;
   box-sizing: border-box;
 }
 
+/* kun fødselsdato-feltet */
 input[type="date"] {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
+  height: 52px;
+  min-height: 52px;
+  line-height: 52px;
+  padding: 0 15px;
 
-  -webkit-appearance: none;
-  appearance: none;
+  -webkit-appearance: auto;
+  appearance: auto;
 }
 
+/* iOS date text */
 input[type="date"]::-webkit-date-and-time-value {
+  min-height: 52px;
+  line-height: 52px;
   text-align: left;
 }
 
