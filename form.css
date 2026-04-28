@@ -87,29 +87,7 @@ textarea {
   box-sizing: border-box;
 }
 
-/* kun fødselsdato-feltet */
-input[type="date"] {
-  height: 52px;
-  min-height: 52px;
-  line-height: 52px;
-  padding: 0 15px;
 
-  -webkit-appearance: auto;
-  appearance: auto;
-}
-
-input[type="date"] {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-}
-
-/* iOS date text */
-input[type="date"]::-webkit-date-and-time-value {
-  min-height: 52px;
-  line-height: 52px;
-  text-align: left;
-}
 
 textarea {
   min-height: 110px;
