@@ -95,6 +95,12 @@ input[type="date"] {
   appearance: auto;
 }
 
+input[type="date"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
 /* iOS date text */
 input[type="date"]::-webkit-date-and-time-value {
   min-height: 52px;
