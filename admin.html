@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VIF Admin</title>
+    <link rel="stylesheet" href="admin.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <section id="loginScreen" class="login-screen">
+        <div class="login-card">
+            <img src="BLUE_VIFCirkelFlat.png" alt="VIF logo" />
+            <h1>VIF Admin</h1>
+            <p>Indtast adgangskode for at se besvarelser.</p>
+
+            <input id="passwordInput" type="password" placeholder="Adgangskode" />
+            <button id="loginBtn">Log ind</button>
+
+            <span id="loginError"></span>
+        </div>
+    </section>
+
+    <main id="adminDashboard" class="admin-dashboard hidden">
+        <header class="admin-header">
+            <div>
+                <h1>VIF Admin</h1>
+                <p id="submissionCount">0 besvarelser</p>
+            </div>
+
+            <div class="admin-actions">
+                <button id="downloadCsvBtn">Download CSV</button>
+                <button id="logoutBtn" class="ghost-btn">Log ud</button>
+            </div>
+        </header>
+
+        <section class="toolbar">
+            <input id="searchInput" type="search" placeholder="Søg navn, mail, telefon eller efterskole..." />
+
+            <select id="filterSelect">
+                <option value="all">Alle</option>
+                <option value="instructor">Instruktør-interesse</option>
+                <option value="team">Hold-interesse</option>
+            </select>
+        </section>
+
+        <section class="admin-layout">
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Navn</th>
+                            <th>Mail</th>
+                            <th>Telefon</th>
+                            <th>Efterskole</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="submissionsTable"></tbody>
+                </table>
+            </div>
+
+            <aside id="detailsPanel" class="details-panel">
+                <p class="empty-state">Vælg en person i tabellen.</p>
+            </aside>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+.thank-you {
+  position: relative;
+  min-height: 100svh;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+}
+
+.thank-you.hidden {
+  display: none;
+}
+
+/* billede */
+.thank-you::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: url("almaforside.jpg") center/cover no-repeat;
+
+  filter: brightness(0.62) contrast(1.08) saturate(0.9);
+  transform: scale(1.06);
+
+  z-index: 0;
+
+  animation: bgSlowZoom 7s ease forwards;
+}
+
+/* overlay */
+.thank-you::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(circle at center, rgba(0, 60, 130, 0.15) 0%, rgba(0, 18, 40, 0.72) 72%, rgba(0, 8, 24, 0.92) 100%), linear-gradient(to bottom, rgba(0, 28, 60, 0.65), rgba(0, 60, 130, 0.28), rgba(0, 18, 40, 0.85));
+
+  z-index: 1;
+}
+
+/* content */
+.thank-you-content {
+  position: relative;
+  z-index: 2;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300; /* tynd = classy */
+  letter-spacing: 4px;
+  text-transform: uppercase;
+
+  display: grid;
+  justify-items: center;
+  gap: 24px;
+
+  padding: 0 22px;
+  text-align: center;
+}
+
+/* logo */
+.thank-you-logo {
+  width: clamp(150px, 42vw, 250px);
+
+  opacity: 0;
+  filter: brightness(1.15) saturate(1.2) drop-shadow(0 16px 34px rgba(0, 0, 0, 0.45));
+
+  animation: logoReveal 0.9s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+
+/* tekst */
+.thank-you-content h1 {
+  color: white;
+
+  font-size: clamp(26px, 7vw, 44px);
+  font-weight: 300;
+  line-height: 1.15;
+
+  letter-spacing: 4px;
+  text-transform: uppercase;
+
+  text-shadow: 0 14px 34px rgba(0, 0, 0, 0.75);
+
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(18px);
+
+  animation: textReveal 1s ease forwards 0.45s;
+}
+
+/* animationer */
+@keyframes logoReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+    filter: blur(10px) brightness(1.15) saturate(1.2) drop-shadow(0 16px 34px rgba(0, 0, 0, 0.45));
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0) brightness(1.15) saturate(1.2) drop-shadow(0 16px 34px rgba(0, 0, 0, 0.45));
+  }
+}
+
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes bgSlowZoom {
+  from {
+    transform: scale(1.06);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
+}
+
+/* TAK SWIPE IN */
+.swipe-in {
+  animation: swipeIn 0.75s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes swipeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+    filter: blur(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.form-container,
+.thank-you {
+  will-change: transform, opacity, filter;
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -10px;
+
+  opacity: 0.9;
+
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(720deg) translateX(30px);
+    opacity: 0;
+  }
+}

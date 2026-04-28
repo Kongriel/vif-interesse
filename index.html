@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VIF</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="tak.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- INTRO -->
+    <div id="intro">
+        <img src="almaforside.jpg" class="bg" />
+        <img src="BLUE_VIFCirkelFlat.png" class="logo" />
+        <div class="intro-text">
+            VALBY IDRÆTSFORENING
+            <span>- GYMNASTIK -</span>
+        </div>
+    </div>
+
+    <!-- FORM (skjult i starten) -->
+
+
+    <main id="formContainer" class="form-container hidden">
+        <section class="form-card">
+            <h1>VIF Interesseformular</h1>
+            <p>Udfyld formularen, så kontakter vi dig.</p>
+
+            <form id="vifForm">
+
+                <!-- PERSONLIGE -->
+                <div class="form-section">
+                    <h2>Personlige oplysninger</h2>
+
+                    <label>
+                        Fulde navn
+                        <input type="text" name="full_name" required />
+                    </label>
+
+                    <label>
+                        Mailadresse
+                        <input type="email" name="email" required />
+                    </label>
+
+                    <label>
+                        Mobilnummer
+                        <input type="tel" name="phone" required />
+                    </label>
+
+                    <label>
+                        Fødselsdato
+                        <input type="date" name="birthdate" />
+                    </label>
+
+                    <label>
+                        Hvilken efterskole går du på?
+                        <input type="text" name="school" />
+                    </label>
+                </div>
+
+                <!-- INSTRUKTØR -->
+                <div class="form-section">
+                    <h2>Instruktør i VIF?</h2>
+
+                    <label class="toggle-line">
+                        <input type="checkbox" id="wantsInstructor" name="wants_instructor_info" />
+                        <span>Ja, jeg vil gerne høre mere</span>
+                    </label>
+
+                    <div id="instructorFields" class="conditional-fields hidden">
+
+                        <label>
+                            Hvor bor du fra august?
+                            <input type="text" name="august_city" />
+                        </label>
+
+                        <label>
+                            Hvilken forening kommer du fra?
+                            <input type="text" name="club" />
+                        </label>
+
+                        <label>
+                            Har du været hjælpetræner?
+                            <select name="assistant">
+                                <option value="">Vælg</option>
+                                <option>Ja</option>
+                                <option>Nej</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Har du været instruktør?
+                            <select name="instructor">
+                                <option value="">Vælg</option>
+                                <option>Ja</option>
+                                <option>Nej</option>
+                            </select>
+                        </label>
+
+                        <div class="chips">
+                            <p>Hvad vil du fokusere på?</p>
+
+                            <label class="chip"><input type="checkbox" name="focus" value="Spring">Spring</label>
+                            <label class="chip"><input type="checkbox" name="focus" value="Rytme">Rytme</label>
+                            <label class="chip"><input type="checkbox" name="focus"
+                                    value="Fælleshold">Fælleshold</label>
+                            <label class="chip"><input type="checkbox" name="focus" value="Børnehold">Børnehold</label>
+                            <label class="chip"><input type="checkbox" name="focus" value="Junior">Junior</label>
+                        </div>
+
+                        <label>
+                            Drengehold?
+                            <select name="boys_team">
+                                <option value="">Vælg</option>
+                                <option>Ja</option>
+                                <option>Nej</option>
+                            </select>
+                        </label>
+
+                    </div>
+                </div>
+
+                <!-- HOLD -->
+                <div class="form-section">
+                    <h2>Vil du selv gå på hold?</h2>
+
+                    <label class="toggle-line">
+                        <input type="checkbox" id="wantsTeam" name="wants_team" />
+                        <span>Ja, jeg er interesseret</span>
+                    </label>
+
+                    <div id="teamFields" class="conditional-fields hidden">
+
+                        <div class="chips">
+                            <p>Vælg hold</p>
+
+                            <label class="chip"><input type="checkbox" name="team" value="De hjemvendte">De
+                                hjemvendte</label>
+                            <label class="chip"><input type="checkbox" name="team" value="DGI Ynglinge">DGI
+                                Ynglinge</label>
+                            <label class="chip"><input type="checkbox" name="team" value="Rytme United">Rytme
+                                United</label>
+                            <label class="chip"><input type="checkbox" name="team" value="Valby Dans">Valby Dans</label>
+                            <label class="chip"><input type="checkbox" name="team"
+                                    value="Dansetyperne">Dansetyperne</label>
+                        </div>
+
+                        <label>
+                            Idé til nyt hold
+                            <textarea name="idea"></textarea>
+                        </label>
+
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn">
+                    <span class="btn-text">Send besvarelse</span>
+                    <span class="btn-spinner"></span>
+                </button>
+
+            </form>
+        </section>
+    </main>
+    <section id="thankYouScreen" class="thank-you hidden">
+        <div class="confetti"></div>
+
+        <div class="thank-you-content">
+            <img src="BLUE_VIFCirkelFlat.png" class="thank-you-logo" />
+            <h1>Tak for din besvarelse</h1>
+        </div>
+    </section>
+    <script src="index.js"></script>
+</body>
+
+</html>
