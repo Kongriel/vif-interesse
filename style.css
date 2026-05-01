@@ -132,7 +132,7 @@ body {
 .intro-text {
   position: absolute;
   bottom: 80px;
-  left: 0;
+  left: 5px;
   right: 0;
   z-index: 3;
 
