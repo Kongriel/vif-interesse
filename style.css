@@ -132,48 +132,46 @@ body {
 .intro-text {
   position: absolute;
   bottom: 80px;
-  left: 50%;
+  left: 0;
+  right: 0;
   z-index: 3;
 
   width: 100%;
-  max-width: 340px;
   padding: 0 20px;
 
-  transform: translateX(-50%);
   text-align: center;
+  color: white;
 
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
+  font-size: clamp(12px, 3vw, 16px);
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: white;
-  font-size: clamp(12px, 3vw, 16px);
 
   opacity: 0;
-  animation: textFade 1s ease forwards 0.8s;
+  animation: textFadeCenter 1s ease forwards 0.8s;
 }
 
-/* den lille undertekst */
 .intro-text span {
   display: block;
   margin-top: 6px;
 
   font-family: "Montserrat", sans-serif;
-  font-weight: 300; /* tynd = classy */
-
-  text-transform: uppercase;
-
+  font-weight: 300;
   letter-spacing: 6px;
   font-size: 0.8em;
-
   opacity: 0.7;
 }
 
-/* fade in animation */
-@keyframes textFade {
+@keyframes textFadeCenter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
   to {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translateY(0);
   }
 }
 /* FORM */
