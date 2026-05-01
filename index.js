@@ -9,6 +9,12 @@ const formContainer = document.getElementById("formContainer");
 const thankYouScreen = document.getElementById("thankYouScreen");
 const submitBtn = document.getElementById("submitBtn");
 
+const wantsInstructor = document.getElementById("wantsInstructor");
+const instructorFields = document.getElementById("instructorFields");
+
+const wantsTeam = document.getElementById("wantsTeam");
+const teamFields = document.getElementById("teamFields");
+
 birthInput.addEventListener("input", (e) => {
   let value = e.target.value.replace(/\D/g, "");
 
@@ -16,24 +22,15 @@ birthInput.addEventListener("input", (e) => {
 
   let formatted = "";
 
-  if (value.length > 0) {
-    formatted = value.substring(0, 2);
-  }
-
-  if (value.length >= 3) {
-    formatted += "/" + value.substring(2, 4);
-  }
-
-  if (value.length >= 5) {
-    formatted += "/" + value.substring(4, 8);
-  }
+  if (value.length > 0) formatted = value.substring(0, 2);
+  if (value.length >= 3) formatted += "/" + value.substring(2, 4);
+  if (value.length >= 5) formatted += "/" + value.substring(4, 8);
 
   e.target.value = formatted;
 });
 
 function isValidDate(dateStr) {
   const parts = dateStr.split("/");
-
   if (parts.length !== 3) return false;
 
   const [day, month, year] = parts.map(Number);
@@ -43,16 +40,39 @@ function isValidDate(dateStr) {
 
   const date = new Date(year, month - 1, day);
 
-  return (
-    date.getFullYear() === year &&
-    date.getMonth() === month - 1 &&
-    date.getDate() === day
-  );
+  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
 }
 
 function toISODate(dateStr) {
   const [day, month, year] = dateStr.split("/");
   return `${year}-${month}-${day}`;
+}
+
+function setRequiredFields(container, isRequired) {
+  const fields = container.querySelectorAll("input, select, textarea");
+
+  fields.forEach((field) => {
+    // Checkbox chips validerer vi selv, ellers får browseren focus-fejl
+    if (field.type === "checkbox") return;
+
+    // Idé til nyt hold skal ikke være required
+    if (field.name === "idea") return;
+
+    if (isRequired) {
+      field.setAttribute("required", "");
+    } else {
+      field.removeAttribute("required");
+    }
+  });
+}
+
+function hasChecked(name) {
+  return document.querySelectorAll(`input[name="${name}"]:checked`).length > 0;
+}
+
+function stopLoading() {
+  submitBtn.classList.remove("is-loading");
+  submitBtn.disabled = false;
 }
 
 setTimeout(() => {
@@ -63,22 +83,23 @@ setTimeout(() => {
 
   setTimeout(() => {
     intro.style.display = "none";
-
     form.classList.remove("hidden");
     form.classList.add("form-swipe-in");
   }, 700);
 }, 3000);
 
-document.getElementById("wantsInstructor").addEventListener("change", (e) => {
-  document
-    .getElementById("instructorFields")
-    .classList.toggle("hidden", !e.target.checked);
+wantsInstructor.addEventListener("change", (e) => {
+  const checked = e.target.checked;
+
+  instructorFields.classList.toggle("hidden", !checked);
+  setRequiredFields(instructorFields, checked);
 });
 
-document.getElementById("wantsTeam").addEventListener("change", (e) => {
-  document
-    .getElementById("teamFields")
-    .classList.toggle("hidden", !e.target.checked);
+wantsTeam.addEventListener("change", (e) => {
+  const checked = e.target.checked;
+
+  teamFields.classList.toggle("hidden", !checked);
+  setRequiredFields(teamFields, checked);
 });
 
 function launchConfetti(amount = 100) {
@@ -113,10 +134,29 @@ vifForm.addEventListener("submit", async (e) => {
   const formData = new FormData(vifForm);
   const birthdate = formData.get("birthdate");
 
+  const hasChosenInterest = formData.get("wants_instructor_info") === "on" || formData.get("wants_team") === "on";
+
+  if (!hasChosenInterest) {
+    alert("Vælg enten instruktør-interesse eller hold-interesse.");
+    stopLoading();
+    return;
+  }
+
+  if (wantsInstructor.checked && !hasChecked("focus")) {
+    alert("Vælg mindst ét fokusområde.");
+    stopLoading();
+    return;
+  }
+
+  if (wantsTeam.checked && !hasChecked("team")) {
+    alert("Vælg mindst ét hold.");
+    stopLoading();
+    return;
+  }
+
   if (birthdate && !isValidDate(birthdate)) {
     alert("Indtast en gyldig fødselsdato i formatet dd/mm/åååå");
-    submitBtn.classList.remove("is-loading");
-    submitBtn.disabled = false;
+    stopLoading();
     return;
   }
 
@@ -145,8 +185,7 @@ vifForm.addEventListener("submit", async (e) => {
   if (error) {
     console.error(error);
     alert("Noget gik galt. Prøv igen.");
-    submitBtn.classList.remove("is-loading");
-    submitBtn.disabled = false;
+    stopLoading();
     return;
   }
 
