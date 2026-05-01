@@ -49,9 +49,16 @@ body {
 
 /* mobil */
 @media (max-width: 768px) {
+  #intro {
+    height: 100vh;
+    height: 100dvh;
+  }
+
   .bg {
-    transform: scale(1.28);
-    object-position: center 38%;
+    width: 100vw;
+    height: 100dvh;
+    min-height: 100dvh;
+    transform: scale(1.45);
   }
 }
 
