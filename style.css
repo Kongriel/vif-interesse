@@ -36,18 +36,18 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
 
-  /* mere som mockuppet: mørk, kold, men ikke død */
   filter: brightness(0.72) contrast(1.08) saturate(0.85);
-  transform: scale(1.03);
+  transform: scale(1.08);
+  transform-origin: center center;
 }
 
-/* 🔥 mobil tweak */
+/* mobil */
 @media (max-width: 768px) {
   .bg {
-    transform: scale(1.4); /* zoom lidt mere */
-    top: -13%;
-    object-position: center 40%;
+    transform: scale(1.28);
+    object-position: center 38%;
   }
 }
 
@@ -120,23 +120,21 @@ body {
 .intro-text {
   position: absolute;
   bottom: 80px;
-  left: 51.5%;
-  transform: translateX(-50%);
+  left: 50%;
   z-index: 3;
-  align-items: center;
+
+  width: 100%;
+  max-width: 340px;
+  padding: 0 20px;
+
+  transform: translateX(-50%);
+  text-align: center;
 
   font-family: "Montserrat", sans-serif;
-  font-weight: 300; /* tynd = classy */
+  font-weight: 300;
   letter-spacing: 4px;
   text-transform: uppercase;
-
-  text-align: center;
   color: white;
-
-  /* 🔥 giver det “spaced out” look */
-  letter-spacing: 4px;
-
-  /* responsiv størrelse */
   font-size: clamp(12px, 3vw, 16px);
 
   opacity: 0;
