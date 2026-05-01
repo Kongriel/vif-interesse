@@ -42,6 +42,15 @@ body {
   transform: scale(1.03);
 }
 
+/* 🔥 mobil tweak */
+@media (max-width: 768px) {
+  .bg {
+    transform: scale(1.4); /* zoom lidt mere */
+    top: -13%;
+    object-position: center 40%;
+  }
+}
+
 /* BLÅ FILTER / OVERLAY */
 #intro::before {
   content: "";
@@ -111,9 +120,10 @@ body {
 .intro-text {
   position: absolute;
   bottom: 80px;
-  left: 50%;
+  left: 51.5%;
   transform: translateX(-50%);
   z-index: 3;
+  align-items: center;
 
   font-family: "Montserrat", sans-serif;
   font-weight: 300; /* tynd = classy */
