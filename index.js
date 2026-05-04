@@ -198,9 +198,31 @@ vifForm.addEventListener("submit", async (e) => {
       thankYouScreen.classList.remove("hidden");
       thankYouScreen.classList.add("swipe-in");
 
+      const video = document.querySelector(".bg-video");
+
+      if (video) {
+        video.pause();
+        video.currentTime = 0;
+        video.load();
+
+        setTimeout(() => {
+          video.play().catch((error) => {
+            console.log("Video kunne ikke autoplay:", error);
+          });
+        }, 80);
+      }
+
       setTimeout(() => launchConfetti(90), 400);
       setTimeout(() => launchConfetti(70), 900);
       setTimeout(() => launchConfetti(50), 1400);
+
+      setTimeout(() => {
+        const thankText = document.querySelector(".thank-you-content h1");
+        if (thankText) {
+          thankText.classList.add("fade-out-text");
+        }
+      }, 4000);
     }, 450);
   }, 600);
 });
+
