@@ -16,10 +16,13 @@
     <section id="loginScreen" class="login-screen">
         <div class="login-card">
             <img src="BLUE_VIFCirkelFlat.png" alt="VIF logo" />
-            <h1>VIF Admin</h1>
-            <p>Indtast adgangskode for at se besvarelser.</p>
 
-            <input id="passwordInput" type="password" placeholder="Adgangskode" />
+            <h1>VIF Admin</h1>
+
+            <input id="emailInput" type="email" placeholder="Email" autocomplete="email">
+
+            <input id="passwordInput" type="password" placeholder="Adgangskode" autocomplete="current-password">
+
             <button id="loginBtn">Log ind</button>
 
             <span id="loginError"></span>
