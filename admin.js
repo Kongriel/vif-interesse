@@ -1,11 +1,12 @@
 const SUPABASE_URL = "https://tmjpwozdimblailfbiru.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_ufZn_VjJtfx9NRov4cSJ_A_OegOF3yT";
-const ADMIN_PASSWORD = "vifadmin";
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const loginScreen = document.getElementById("loginScreen");
 const adminDashboard = document.getElementById("adminDashboard");
+
+const emailInput = document.getElementById("emailInput");
 const passwordInput = document.getElementById("passwordInput");
 const loginBtn = document.getElementById("loginBtn");
 const loginError = document.getElementById("loginError");
@@ -22,32 +23,68 @@ let submissions = [];
 let filteredSubmissions = [];
 let selectedId = null;
 
+document.addEventListener("DOMContentLoaded", checkSession);
+
 loginBtn.addEventListener("click", handleLogin);
 
 passwordInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") handleLogin();
 });
 
-logoutBtn.addEventListener("click", () => {
-  sessionStorage.removeItem("vif_admin_logged_in");
-  location.reload();
+emailInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") handleLogin();
 });
+
+logoutBtn.addEventListener("click", handleLogout);
 
 searchInput.addEventListener("input", renderSubmissions);
 filterSelect.addEventListener("change", renderSubmissions);
 downloadCsvBtn.addEventListener("click", downloadCsv);
 
-if (sessionStorage.getItem("vif_admin_logged_in") === "true") {
-  showDashboard();
+async function checkSession() {
+  const {
+    data: { session },
+  } = await supabaseClient.auth.getSession();
+
+  if (session) {
+    await showDashboard();
+  } else {
+    showLogin();
+  }
 }
 
-function handleLogin() {
-  if (passwordInput.value === ADMIN_PASSWORD) {
-    sessionStorage.setItem("vif_admin_logged_in", "true");
-    showDashboard();
-  } else {
-    loginError.textContent = "Forkert adgangskode";
+async function handleLogin() {
+  loginError.textContent = "";
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
+
+  const { error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    loginError.textContent = "Forkert email eller adgangskode.";
+    return;
   }
+
+  await showDashboard();
+}
+
+async function handleLogout() {
+  await supabaseClient.auth.signOut();
+
+  submissions = [];
+  filteredSubmissions = [];
+  selectedId = null;
+
+  showLogin();
+}
+
+function showLogin() {
+  loginScreen.classList.remove("hidden");
+  adminDashboard.classList.add("hidden");
 }
 
 async function showDashboard() {
@@ -67,6 +104,13 @@ async function fetchSubmissions() {
 
   submissions = data || [];
   renderSubmissions();
+
+  if (filteredSubmissions.length > 0) {
+    selectedId = filteredSubmissions[0].id;
+    renderDetails(filteredSubmissions[0]);
+  } else {
+    detailsPanel.innerHTML = `<p class="empty-state">Ingen besvarelser endnu.</p>`;
+  }
 }
 
 function renderSubmissions() {
@@ -95,7 +139,6 @@ function renderSubmissions() {
       <td>${escapeHtml(item.email || "-")}</td>
       <td>${escapeHtml(item.phone || "-")}</td>
       <td>${escapeHtml(item.school || "-")}</td>
-
     `;
 
     row.addEventListener("click", () => {
@@ -111,7 +154,6 @@ function renderSubmissions() {
 function renderDetails(item) {
   detailsPanel.innerHTML = `
     <h2>${escapeHtml(item.full_name || "Uden navn")}</h2>
-    
 
     <div class="detail-group">
       <h3>Personlige oplysninger</h3>
@@ -159,10 +201,6 @@ function detailTags(label, values) {
       <div class="tag-list">${tags}</div>
     </div>
   `;
-}
-
-function badge(value) {
-  return value ? `<span class="badge yes">Ja</span>` : `<span class="badge no">Nej</span>`;
 }
 
 function formatDate(dateString) {
@@ -213,3 +251,4 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+
