@@ -63,16 +63,24 @@
 /* logo */
 .thank-you-logo {
   width: clamp(150px, 42vw, 250px);
-  display: block;
-  object-fit: contain;
+  aspect-ratio: 1 / 1;
+
+  background-image: url("./BLUE_VIFCirkelFlat.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 
   opacity: 0;
-  filter: brightness(1.15) saturate(1.2) drop-shadow(0 16px 34px rgba(0, 0, 0, 0.45));
+  transform: scale(0.82);
 
-  animation: logoReveal 0.9s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+  animation: logoRevealSimple 0.9s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
 
-  /* FIX */
-  background: transparent;
+@keyframes logoRevealSimple {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* tekst */
